@@ -1,0 +1,5 @@
+{
+    "sso": {
+      "url": "https://iotsso.vdc2.com.vn:8443/cas/oauth2.0"
+    }
+}
