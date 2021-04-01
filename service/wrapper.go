@@ -4,9 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-
-	"github.com/spf13/viper"
-	"github.com/thanhlam/sso-service/config"
+	//"github.com/thanhlam/sso-service/config"
 )
 
 type RTokens struct {
@@ -17,8 +15,9 @@ type RTokens struct {
 }
 
 func BasicAuth(token string) (s string, err error) {
-	config.ReadConfig()
-	link := viper.GetString(`sso.url`)
+	//config.ReadConfig()
+	//link := viper.GetString(`sso.url`)
+	link := "https://iotsso.vdc2.com.vn:8443/cas/oauth2.0"
 	var username string = "exampleOauthClient"
 	var passwd string = "exampleOauthClientSecret"
 	client := &http.Client{}
