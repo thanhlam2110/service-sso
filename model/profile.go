@@ -3,6 +3,9 @@ package model
 type AuthenRequestBody struct {
 	Token string `json:"token"`
 }
+type ThingRoleBody struct {
+	Thingid string `json:"Thingid"`
+}
 type UserSSO struct {
 	Username     string `json:"username"`
 	Password     string `json:"password"`

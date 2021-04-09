@@ -12,8 +12,10 @@ func main() {
 	e.GET("/", func(c echo.Context) error {
 		return c.String(http.StatusOK, "SSO SERVICE")
 	})
-	//<---------------------------SSO ------------------------------>
+	//<---------------------------SSO------------------------------>
 	//e.POST("/api/sso/requestToken", service.RequestSSOTokenv2)
 	e.POST("/api/sso/parseToken", service.ParseSSOToken)
+	//<---------------------------Thing ------------------------------>
+	e.POST("/api/thing/getThingRole", service.GetThingRole)
 	e.Logger.Fatal(e.Start(":1323"))
 }
