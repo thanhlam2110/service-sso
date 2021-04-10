@@ -17,7 +17,7 @@ func UserPushCommand(c echo.Context) error {
 	}
 	token := userRoleBody.Token
 	thingId := userRoleBody.Thingid
-	role := userRoleBody.Role
+	//role := userRoleBody.Role
 	//check user status
 	authResponse, err := BasicAuth(token)
 	if err != nil {
@@ -48,11 +48,11 @@ func UserPushCommand(c echo.Context) error {
 	//check role
 	_, userRole := CheckUserRole(userid)
 	//fmt.Println(userRole)
-	if contains(userRole, role) != true {
+	/*if contains(userRole, role) != true {
 		return c.JSON(200, map[string]interface{}{"code": "3", "message": "Don't Have Role", "data": nil})
 	}
-	//check role
-	return c.JSON(200, map[string]interface{}{"code": "0", "message": "Allow", "data": nil})
+	//check role*/
+	return c.JSON(200, map[string]interface{}{"code": "0", "message": "Success", "data": userRole})
 }
 
 //check element exits in array
