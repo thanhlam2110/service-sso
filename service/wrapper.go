@@ -1,6 +1,7 @@
 package service
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -33,4 +34,34 @@ func BasicAuth(token string) (s string, err error) {
 	bodyText, err := ioutil.ReadAll(resp.Body)
 	s = string(bodyText)
 	return s, nil
+}
+
+type Tokens struct {
+	Accesstoken  string `json:"access_token"`
+	Refreshtoken string `json:"refresh_token"`
+	Tokentype    string `json:"token_type"`
+	Expiresin    string `json:"expires_in"`
+	Scope        string `json:"scope"`
+}
+
+func RequestTokenv2(client_id string, client_secret string, username string, password string) (string, string) {
+	link := "https://iotsso.vdc2.com.vn:8443/cas/oauth2.0"
+	url := link + "/token?grant_type=password&client_id=" + client_id + "&client_secret=" + client_secret + "&username=" + username + "&password=" + password
+	req, _ := http.NewRequest("GET", url, nil)
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		//Sys log
+		fmt.Println(err)
+		return "", ""
+		//Sys log
+	}
+	body, _ := ioutil.ReadAll(res.Body)
+	stringBody := string(body)
+	if stringBody != "" {
+		var tokens Tokens
+		json.Unmarshal([]byte(stringBody), &tokens)
+		return tokens.Accesstoken, tokens.Refreshtoken
+	} else {
+		return "", ""
+	}
 }
